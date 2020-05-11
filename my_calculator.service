@@ -1,0 +1,14 @@
+[Unit]
+Description =  calc service by Hashir Irfan, BCSF17A024.
+After =  network.target
+StartLimitIntervalSec = 0
+
+[Service]
+Type = Simple
+Restart =  Always
+RestartSec =  1
+ExecStart = /usr/bin/python /usr/local/bin/my_calculator.py
+
+[Install]
+WantedBy =  multi-user.target
+Alias = calc.service
