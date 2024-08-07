@@ -1,35 +1,52 @@
-It is a pyhton service calculator.
+# Python Service Calculator
 
-This service runs on 54153 port, you can also change the port number by editing line 4 of my_calulator.py
+This service is a Python calculator that runs on port 54153 by default. You can change the port number by editing line 4 of `my_calculator.py`.
 
-It will prompt a message that the server is listening on port 54153. 
+## Getting Started
 
-On the next line it will display the instructions how to use the service.
+1. **Start the Service**: 
+   When you run the service, it will prompt a message indicating that the server is listening on port 54153. Following this, it will display instructions on how to use the service.
 
-Open the another terminal and type
-"nc -u 54153"
--u command is given as it runs on UDP
+2. **Connecting to the Service**:
+   Open another terminal and type:
+`nc -u 54153`
 
-You have to write two numbers one on each line, then you will have to enter an operator, which will tell which operation the user likes to perform.
+The `-u` flag is used because the service runs on UDP.
+
+3. **Using the Service**:
+- Enter two numbers, one on each line.
+- Enter an operator to specify the operation you want to perform.
+
+## Valid Operators
 
 The following operators are valid:
+`+, -, *, /, %, ^, =, <, >`
 
-"+, -, *, /, %, ^, =, <, >"
 
-On the 4th line the result will be displayed.
+On the 4th line, the result will be displayed.
 
-payload3 is a variable which stores the operator, it is then campared to check which operation user likes to perform.
+## Functionality Details
 
-If a user wishes to perform division and enters 0 as denominator, the code will prompt user that "Division by zero is not possible" and will ask the user to enter a non zero number in a while loop.
+- **Operator Handling**:
+  - `payload3` is a variable that stores the operator.
+  - The code checks which operation the user wants to perform by comparing `payload3`.
 
-Same is the case when a user tries to find modulus and enters 2nd number 0 so the user will be prompted to enter again until he enters a non zero number.
+- **Special Cases**:
+  - **Division by Zero**:
+    - If a user tries to divide by zero, the code will prompt the user that "Division by zero is not possible" and will ask for a non-zero number in a while loop.
+  - **Modulus by Zero**:
+    - Similarly, if a user tries to find the modulus with zero as the second number, the user will be prompted to enter a non-zero number until a valid input is given.
 
-In case of an invalid operator the program will prompt a message and then run again.
+- **Invalid Operator**:
+  - In case of an invalid operator, the program will prompt a message and then run again.
 
-This whole works in a while true loop and will ask for the inputs until the user press ctrl + c.
+This entire process works in a `while True` loop, continuously asking for inputs until the user presses `Ctrl + C` to terminate the program.
 
-As the input from client in string so the code will first convert the string into float, perfrom the operation and then convert the result back into string.
+## Technical Details
 
-This converted string is sent to client on the client address which was achieved from recvfrom(1024) built in python function by python sendto() function.
-This function accepts 2 arguments, first is the string and the second is the client address.
-
+- **Data Handling**:
+  - The input from the client is a string, so the code first converts the string into a float, performs the operation, and then converts the result back into a string.
+  
+- **Communication**:
+  - The converted string is sent to the client on the client address, which was obtained from the `recvfrom(1024)` function.
+  - The `sendto()` function is used to send the result back to the client. This function accepts two arguments: the result string and the client address.
